@@ -92,11 +92,49 @@
     form.addEventListener('submit', e => {
       e.preventDefault();
       let output = document.querySelector('output');
-      let firstNum = document.querySelector('#first-num').value;
-      let secondNum = document.querySelector('#second-num').value;
-      let operator = document.querySelector('#operator').value;
-      output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+    
+      try {
+        let firstNum = document.querySelector('#first-num').value;
+        let secondNum = document.querySelector('#second-num').value;
+        let operator = document.querySelector('#operator').value;
+    
+        // Input validation
+        if (firstNum === '' || secondNum === '') {
+          throw new Error('Both input fields must be filled.');
+        }
+    
+        if (isNaN(firstNum) || isNaN(secondNum)) {
+          throw new Error('Inputs must be valid numbers.');
+        }
+    
+        firstNum = Number(firstNum);
+        secondNum = Number(secondNum);
+    
+        let result;
+        switch (operator) {
+          case '+': result = firstNum + secondNum; break;
+          case '-': result = firstNum - secondNum; break;
+          case '*': result = firstNum * secondNum; break;
+          case '/':
+            if (secondNum === 0) {
+              throw new Error('Cannot divide by zero.');
+            }
+            result = firstNum / secondNum;
+            break;
+          default:
+            throw new Error('Invalid operator selected.');
+        }
+    
+        output.innerHTML = result;
+    
+      } catch (err) {
+        console.error('Calculation Error:', err.message);
+        output.innerHTML = `Error: ${err.message}`;
+      } finally {
+        console.log('Calculation attempted.');
+      }
     });
+
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
 
