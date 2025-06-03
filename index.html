@@ -88,6 +88,14 @@
   </main>
 
   <script>
+    window.onerror = function (message, source, lineno, colno, error) {
+      console.log('Caught a global error:');
+      console.log('Message:', message);
+      console.log('Source:', source);
+      console.log('Line:', lineno, 'Column:', colno);
+      console.log('Error object:', error);
+    };
+
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
       e.preventDefault();
@@ -220,6 +228,7 @@
             
           case "Trigger a Global Error":
             // Left empty as per instructions
+            nonExistentFunction();
             break;
         }
       });
