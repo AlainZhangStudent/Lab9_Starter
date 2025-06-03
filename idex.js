@@ -12,116 +12,87 @@ let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
 
 // Start your code here
 // You may move this JS to another file if you wish
-errorBtns.forEach((btn, index) => {
-  switch(btn.textContent) {
-    case "Console Log":
-      btn.addEventListener('click', () => {
-        console.log("Logging form data:", {
-          firstNum: document.querySelector('#first-num').value,
-          secondNum: document.querySelector('#second-num').value,
-          operator: document.querySelector('#operator').value
-        });
-      });
-      break;
-      
-    case "Console Error":
-      btn.addEventListener('click', () => {
-        console.error("Error: Form values are:", 
-          document.querySelector('#first-num').value, 
-          document.querySelector('#second-num').value);
-      });
-      break;
-      
-    case "Console Count":
-      btn.addEventListener('click', () => {
-        console.count("Button click count");
-      });
-      break;
-      
-    case "Console Warn":
-      btn.addEventListener('click', () => {
-        console.warn("Warning: Be careful with the calculator!");
-      });
-      break;
-      
-    case "Console Assert":
-      btn.addEventListener('click', () => {
-        const output = document.querySelector('output').textContent;
-        console.assert(output !== '', "Assertion: Output is empty");
-      });
-      break;
-      
-    case "Console Clear":
-      btn.addEventListener('click', () => {
+errorBtns.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const firstNum = document.querySelector('#first-num').value;
+    const secondNum = document.querySelector('#second-num').value;
+    const operator = document.querySelector('#operator').value;
+    const output = document.querySelector('output').textContent;
+
+    switch(btn.textContent) {
+      case "Console Log":
+        console.log('Form values:', { firstNum, operator, secondNum });
+        break;
+        
+      case "Console Error":
+        console.error('Error with values:', firstNum, operator, secondNum);
+        break;
+        
+      case "Console Count":
+        console.count('Count');
+        break;
+        
+      case "Console Warn":
+        console.warn('Warning about values:', firstNum, operator, secondNum);
+        break;
+        
+      case "Console Assert":
+        console.assert(output !== '', 'Output is empty!');
+        break;
+        
+      case "Console Clear":
         console.clear();
-      });
-      break;
-      
-    case "Console Dir":
-      btn.addEventListener('click', () => {
+        break;
+        
+      case "Console Dir":
         console.dir(document.querySelector('form'));
-      });
-      break;
-      
-    case "Console dirxml":
-      btn.addEventListener('click', () => {
+        break;
+        
+      case "Console dirxml":
         console.dirxml(document.querySelector('fieldset'));
-      });
-      break;
-      
-    case "Console Group Start":
-      btn.addEventListener('click', () => {
-        console.group("Form Details");
-        console.log("First number:", document.querySelector('#first-num').value);
-        console.log("Operator:", document.querySelector('#operator').value);
-      });
-      break;
-      
-    case "Console Group End":
-      btn.addEventListener('click', () => {
+        break;
+        
+      case "Console Group Start":
+        console.group('Form Data Group');
+        console.log('First Number:', firstNum);
+        console.log('Operator:', operator);
+        console.log('Second Number:', secondNum);
+        break;
+        
+      case "Console Group End":
         console.groupEnd();
-      });
-      break;
-      
-    case "Console Table":
-      btn.addEventListener('click', () => {
+        break;
+        
+      case "Console Table":
         console.table([
-          { field: 'First Number', value: document.querySelector('#first-num').value },
-          { field: 'Operator', value: document.querySelector('#operator').value },
-          { field: 'Second Number', value: document.querySelector('#second-num').value }
+          { Field: 'First Number', Value: firstNum },
+          { Field: 'Operator', Value: operator },
+          { Field: 'Second Number', Value: secondNum },
+          { Field: 'Result', Value: output }
         ]);
-      });
-      break;
-      
-    case "Start Timer":
-      btn.addEventListener('click', () => {
-        console.time("Form Processing");
-      });
-      break;
-      
-    case "End Timer":
-      btn.addEventListener('click', () => {
-        console.timeEnd("Form Processing");
-      });
-      break;
-      
-    case "Console Trace":
-      btn.addEventListener('click', () => {
-        function first() {
-          second();
+        break;
+        
+      case "Start Timer":
+        console.time('Calculation Timer');
+        break;
+        
+      case "End Timer":
+        console.timeEnd('Calculation Timer');
+        break;
+        
+      case "Console Trace":
+        function traceFunction1() {
+          traceFunction2();
         }
-        function second() {
-          third();
+        function traceFunction2() {
+          console.trace('Trace from button click');
         }
-        function third() {
-          console.trace("Trace from button click");
-        }
-        first();
-      });
-      break;
-      
-    case "Trigger a Global Error":
-      // Leave this as is
-      break;
-  }
+        traceFunction1();
+        break;
+        
+      case "Trigger a Global Error":
+        // Left empty as per instructions
+        break;
+    }
+  });
 });
