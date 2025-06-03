@@ -93,6 +93,13 @@
     });
   </script>
   <script>
+    class InputError extends Error {
+      constructor(message) {
+        super(message);
+        this.name = 'InputError';
+      }
+    }
+
     window.onerror = function (message, source, lineno, colno, error) {
       console.log('Caught a global error:');
       console.log('Message:', message);
@@ -110,14 +117,17 @@
         let firstNum = document.querySelector('#first-num').value;
         let secondNum = document.querySelector('#second-num').value;
         let operator = document.querySelector('#operator').value;
-    
-        // Input validation
         if (firstNum === '' || secondNum === '') {
-          throw new Error('Both input fields must be filled.');
+          throw new InputError('Both input fields must be filled.');
+        }
+        if (isNaN(firstNum) || isNaN(secondNum)) {
+          throw new InputError('Inputs must be valid numbers.');
         }
     
-        if (isNaN(firstNum) || isNaN(secondNum)) {
-          throw new Error('Inputs must be valid numbers.');
+        // Input validation
+    
+        if (firstNum === '' || secondNum === '') {
+          throw new InputError('Both input fields must be filled.');
         }
     
         firstNum = Number(firstNum);
